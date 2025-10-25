@@ -1,0 +1,165 @@
+/* Base layout */
+:root { color-scheme: dark; }
+html, body, #root { height: 100%; }
+body {
+  margin: 0; background: #0e0f12; color: #e9ecf1;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+}
+.container { max-width: 980px; margin: 32px auto; padding: 0 16px; }
+h1 { margin: 0 0 16px; }
+
+/* Cards / list */
+.card {
+  background: #141720; border: 1px solid #242a36; border-radius: 14px;
+  padding: 14px; margin-bottom: 12px;
+}
+.list { display: grid; gap: 12px; }
+.item {
+  background: #141720; border: 1px solid #242a36; border-radius: 14px;
+  padding: 12px; display: grid; grid-template-columns: auto 1fr auto; gap: 12px;
+}
+.title { font-weight: 600; }
+.title.done { text-decoration: line-through; opacity: .7; }
+.meta { opacity: .9; font-size: 13px; display: flex; gap: 10px; flex-wrap: wrap; margin-top: 4px; }
+.badge { padding: 2px 8px; border-radius: 999px; font-size: 12px; background: #1f2430; border: 1px solid #2a2f3a; }
+.badge.low { background: #1b2a1b; border-color: #284a28; }
+.badge.medium { background: #2a251b; border-color: #4a3a28; }
+.badge.high { background: #2a1b1b; border-color: #4a2828; }
+.actions { display: flex; gap: 8px; align-items: center; }
+
+/* Grids for forms/filters */
+.grid5 { display: grid; grid-template-columns: 2fr 1fr 3fr auto; gap: 12px; align-items: center; }
+.grid6 { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr auto; gap: 12px; align-items: center; }
+
+/* Buttons + inputs (your required rules) */
+.input { padding: 10px 12px; border-radius: 10px; border: 1px solid #2a2f3a; background:#111319; color: inherit; }
+.item.editing { outline: 1px dashed #3b82f6; outline-offset: 4px; }
+.edit-grid { display:grid; grid-template-columns: 2fr 1fr 3fr; gap:12px; }
+.col-check { display:flex; align-items:center; }
+.field-hint { font-size: 13px; margin-top: 6px; opacity: .85; }
+.field-hint.error { color: #f87171; }
+button { padding: 10px 12px; border-radius: 10px; border: 1px solid #2a2f3a; background:#1a1f2b; color: #e9ecf1; cursor: pointer; }
+button.primary { background:#2563eb; color:white; border-color:#2563eb; }
+button.ghost { background:#2d3748; }
+button.danger { background:#3a1f1f; border-color:#4a2828; }
+.actions button {
+  transition: 0.15s ease;
+}
+.actions span {
+  margin-right: 6px;
+}
+
+/* === Infinite Carousel === */
+.carousel {
+  position: relative;
+  overflow: hidden;
+  padding: 6px 0; /* breathing room for fades */
+}
+
+.carousel-track {
+  display: flex;
+  align-items: stretch;
+  will-change: transform;
+  /* avoid layout jank during transforms */
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+.carousel-card {
+  /* Fixed min card width; adapts with media queries */
+  flex: 0 0 320px;
+  margin-right: 16px;
+}
+
+/* Optional: fade edges so the loop feels continuous */
+.carousel-fade {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 48px;
+  pointer-events: none;
+  z-index: 1;
+}
+.carousel-fade.left {
+  left: 0;
+  background: linear-gradient(to right, rgba(14,15,18,1), rgba(14,15,18,0));
+}
+.carousel-fade.right {
+  right: 0;
+  background: linear-gradient(to left, rgba(14,15,18,1), rgba(14,15,18,0));
+}
+
+/* Responsive card width */
+@media (max-width: 900px) {
+  .carousel-card { flex-basis: 280px; }
+}
+@media (max-width: 700px) {
+  .carousel-card { flex-basis: 240px; }
+}
+@media (max-width: 520px) {
+  .carousel-card { flex-basis: 85vw; } /* mostly full-width on phones */
+}
+
+/* a11y helper */
+.sr-only { position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden; }
+
+/* toggle switch */
+.toggle {
+  width: 44px; height: 26px; border-radius: 999px;
+  border: 1px solid #2a2f3a; background: #1a1f2b;
+  position: relative; display: inline-flex; align-items: center;
+  padding: 0; cursor: pointer;
+}
+.toggle.on { background: #1e3a8a; border-color: #2563eb; }
+.toggle-knob {
+  position: absolute; top: 2px; left: 2px; width: 22px; height: 22px;
+  background: #e9ecf1; border-radius: 50%; transition: transform .18s ease;
+}
+.toggle.on .toggle-knob { transform: translateX(18px); }
+
+/* completed animation & state */
+.item.is-completed { opacity: .92; transition: background .2s ease, opacity .2s ease; }
+.item.is-completed .title { text-decoration: line-through; opacity: .8; }
+
+/* === Endless Carousel === */
+.carousel {
+  position: relative;
+  overflow: hidden;
+  padding: 6px 0;
+}
+
+.carousel-track {
+  display: flex;
+  align-items: stretch;
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+.carousel-card {
+  flex: 0 0 320px;
+  margin-right: 16px;
+}
+
+/* Fade edges */
+.carousel-fade {
+  position: absolute;
+  top: 0; bottom: 0; width: 48px;
+  pointer-events: none; z-index: 1;
+}
+.carousel-fade.left {
+  left: 0;
+  background: linear-gradient(to right, rgba(14,15,18,1), rgba(14,15,18,0));
+}
+.carousel-fade.right {
+  right: 0;
+  background: linear-gradient(to left, rgba(14,15,18,1), rgba(14,15,18,0));
+}
+
+/* Responsive card width */
+@media (max-width: 900px) { .carousel-card { flex-basis: 280px; } }
+@media (max-width: 700px) { .carousel-card { flex-basis: 240px; } }
+@media (max-width: 520px) { .carousel-card { flex-basis: 85vw; } }
+
+
+
